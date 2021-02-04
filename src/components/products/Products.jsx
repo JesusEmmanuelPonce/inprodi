@@ -4,7 +4,7 @@ import { Product } from './Product';
 
 export const Products = () => {
     const [listItems, setListItems] = useState(
-        Array.from(Array(20).keys(), n => n + 1)
+        Array.from(Array(30).keys(), n => n + 1)
       );
     
       const [isFetching, setIsFetching] = useState(false);

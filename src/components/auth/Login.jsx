@@ -1,7 +1,6 @@
 import React from 'react'
 import { useDispatch } from 'react-redux';
 import { startLogin } from '../../actions/auth';
-// import { useForm } from '../../hooks/useForm'
 
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
@@ -16,12 +15,6 @@ export const Login = () => {
     
     const dispatch = useDispatch()
 
-    // const [ formValues, handleInputChange ] = useForm({
-    //     email: 'test@emmanuel.com',
-    //     password: 'yisus123'
-    // });
-
-    // Formik
     const formik = useFormik({
         initialValues: {
             password: '',
@@ -33,19 +26,9 @@ export const Login = () => {
         }),
         onSubmit: formValues => {
             console.log(formValues) 
-            history.push("/")
             dispatch(startLogin(formValues.email, formValues.password))
         }
     })
-
-    // const { email, password } = formValues
-
-    // const handleLogin = e => {
-    //     e.preventDefault()
-    //     console.log(formValues)
-    //     dispatch(startLogin(email, password))
-    // }
-
 
     return (
         <>

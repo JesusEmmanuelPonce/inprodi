@@ -20,6 +20,8 @@ export const AppRouter = () => {
         dispatch(startCheck())
     },[dispatch])
     
+    console.log(dispatch)
+
     console.log(`Check: ${check} - Email: ${email} - Id: ${id}`)
 
     return (

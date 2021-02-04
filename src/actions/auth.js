@@ -54,3 +54,12 @@ const login = (user) => ({
     type: types.authLogin,
     payload: user
 })
+
+export const preparedLogout = () => {
+    return(dispatch) => {
+        localStorage.clear()
+        dispatch(logout())
+    }
+}
+
+const logout = () => ({type: types.authLogout})
