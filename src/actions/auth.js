@@ -12,17 +12,43 @@ export const startLogin = (email, password) => {
 
         const body = loginRequest.data 
 
-        console.log(body)
+        // console.log(loginRequest)
+        // console.log(body)
 
         if(body.ok){
-            console.log('test de email', body)
             localStorage.setItem('token', body.token)
             dispatch(login({
-                email: 'test@emmanuel.com'
+                email: body.email
             }))
         }
     }
 }
+
+export const startCheck = () => {
+    return async(dispatch) => {
+        
+        const token = localStorage.getItem('token') || ''
+    
+        const revalidateToken = await axios.get('https://inprodi.herokuapp.com/api/login/revalidate', {
+            headers: {
+                'x-token': token
+            }
+        })
+
+        const body = revalidateToken
+        
+        if(body.ok){
+            localStorage.setItem('token', body.token)
+            dispatch(login({
+                email: body.email
+            }))
+        }else{
+            dispatch(checkEnd())
+        }
+    }
+}
+
+const checkEnd = () => ({ type: types.checkEnd })
 
 const login = (user) => ({
     type: types.authLogin,

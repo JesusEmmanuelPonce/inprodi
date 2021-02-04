@@ -13,7 +13,7 @@ export const AuthRouter = () => {
            <div className="auth__box-container">
                 <Switch>
                     <Route exact path="/auth/login" component={Login} />
-                    <Redirect to="/auth/login" />
+                    <Redirect exact to="/auth/login" />
                 </Switch>
            </div>
        </div>
