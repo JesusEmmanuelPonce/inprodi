@@ -10,3 +10,5 @@ export const store = createStore(
         applyMiddleware(thunk)
     )
 )
+
+store.subscribe( () => localStorage.setItem('state', JSON.stringify(store.getState())))

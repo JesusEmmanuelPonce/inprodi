@@ -10,7 +10,8 @@ export const authReducer = (state = initialState, action) => {
             return {
                 ...state,
                 ...action.payload,
-                check: false
+                check: false,
+                loged: true
             }
         case types.checkEnd: 
             return {
@@ -20,7 +21,8 @@ export const authReducer = (state = initialState, action) => {
             }
         case types.authLogout:
             return {
-                check: false
+                check: false,
+                loged: false
             }
         default:
             return state

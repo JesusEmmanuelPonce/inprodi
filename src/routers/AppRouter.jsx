@@ -8,21 +8,19 @@ import {
 import { startCheck } from '../actions/auth'
 import { Products } from '../components/products/Products'
 import { AuthRouter } from './AuthRouter'
-import { PrivateRoute } from './PrivateRoute'
-import { PublicRoute } from './PublicRoute'
+import PrivateRoute from './PrivateRoute'
+import PublicRoute from './PublicRoute'
 
 export const AppRouter = () => {
 
-    const dispatch = useDispatch()
-    const { check, email, id } = useSelector(state => state.auth)
+    // const dispatch = useDispatch()
+    // const { check, email, id } = useSelector(state => state.auth)
 
-    useEffect(() => {
-        dispatch(startCheck())
-    },[dispatch])
-    
-    console.log(dispatch)
+    // useEffect(() => {
+    //     dispatch(startCheck())
+    // },[dispatch])
 
-    console.log(`Check: ${check} - Email: ${email} - Id: ${id}`)
+    // console.log(`Check: ${check} - Email: ${email} - Id: ${id}`)
 
     return (
         <Router>
@@ -30,12 +28,12 @@ export const AppRouter = () => {
                 <PublicRoute
                     path="/auth" 
                     component={AuthRouter} 
-                    isAuthenticated={!!id}
+
                 />
                 <PrivateRoute 
                     path="/" 
                     component={Products} 
-                    isAuthenticated={!!id}
+
                 />
                 <Redirect to="/" />
             </Switch>

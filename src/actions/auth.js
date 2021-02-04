@@ -12,13 +12,12 @@ export const startLogin = (email, password) => {
 
         const body = loginRequest.data 
 
-        // console.log(loginRequest)
-        // console.log(body)
-
         if(body.ok){
-            localStorage.setItem('token', body.token)
+            // Agregar token en el dispatch
+            const token = body.token
             dispatch(login({
-                email: body.email
+                email: body.email,
+                token
             }))
         }
     }
@@ -38,10 +37,8 @@ export const startCheck = () => {
         const body = revalidateToken
         
         if(body.ok){
-            localStorage.setItem('token', body.token)
-            dispatch(login({
-                email: body.email
-            }))
+            localStorage.setItem('token', token)
+            dispatch(login())
         }else{
             dispatch(checkEnd())
         }
