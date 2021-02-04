@@ -1,59 +1,78 @@
 import React from 'react'
 import { useDispatch } from 'react-redux';
 import { startLogin } from '../../actions/auth';
-import { useForm } from '../../hooks/useForm'
+// import { useForm } from '../../hooks/useForm'
+
+import { useFormik } from 'formik'
+import * as Yup from 'yup'
+import TextField from '@material-ui/core/TextField'
+import Button from '@material-ui/core/Button'
+import { Grid } from '@material-ui/core';
+import { useHistory } from 'react-router-dom';
 
 export const Login = () => {
 
+    let history = useHistory()
+    
     const dispatch = useDispatch()
 
-    const [ formValues, handleInputChange ] = useForm({
-        email: 'test@emmanuel.com',
-        password: 'yisus123'
-    });
+    // const [ formValues, handleInputChange ] = useForm({
+    //     email: 'test@emmanuel.com',
+    //     password: 'yisus123'
+    // });
 
-    const { email, password } = formValues
+    // Formik
+    const formik = useFormik({
+        initialValues: {
+            password: '',
+            email: ''
+        },
+        validationSchema: Yup.object({
+            email: Yup.string().email('El email no es valido').required('El email es necesario'),
+            password: Yup.string().required('La contraseña es necesaria').min(6, 'La contraseña debe de tener al menos 6 caracteres'),
+        }),
+        onSubmit: formValues => {
+            console.log(formValues) 
+            history.push("/")
+            dispatch(startLogin(formValues.email, formValues.password))
+        }
+    })
 
-    const handleLogin = e => {
-        e.preventDefault()
-        console.log(formValues)
-        dispatch(startLogin(email, password))
-    }
+    // const { email, password } = formValues
+
+    // const handleLogin = e => {
+    //     e.preventDefault()
+    //     console.log(formValues)
+    //     dispatch(startLogin(email, password))
+    // }
 
 
     return (
         <>
-            <h2 className="auth__title">
-                Iniciar Sesion
-            </h2>
-            <form
-                onSubmit={handleLogin}
-            >
-                <input 
-                    type="text"
-                    placeholder="Email"
-                    name="email"
-                    className="auth__input"
-                    autoComplete="off"
-                    value={email}
-                    onChange={handleInputChange}
-                />
-                <input 
-                    type="password"
-                    placeholder="*****"
-                    name="password"
-                    className="auth__input"
-                    value={password}
-                    onChange={handleInputChange}
-                />
-                <button
-                    type="submit"
-                    className="btn btn-primary btn-block"
+            <div className="auth__main">
+                <Grid 
+                    container
+                    direction="column"
+                    justify="center"
+                    alignItems="center"   
                 >
-                    Ingresar
-                </button>
-                <hr />
-            </form>
+                    <div className="auth__main-form">
+                        <h2 className="auth__title">
+                            Iniciar Sesion
+                        </h2>
+                        <form
+                            noValidate 
+                            onSubmit={formik.handleSubmit}
+                        >
+                            <TextField value={formik.values.email} onChange={formik.handleChange} helperText={formik.errors.email} error={formik.errors.email && formik.touched.email} name="email" label="Email" className="w-100" />
+                            <TextField value={formik.values.password} onChange={formik.handleChange} helperText={formik.errors.password} error={formik.errors.password && formik.touched.password} name="password" label="Password" className="w-100" />
+                            <Button type="submit" variant="contained" color="primary" className="w-100 auth__form-button">
+                                Entrar
+                            </Button>
+                        </form>
+                    </div>
+                </Grid>
+            </div>
         </>
     )
 }

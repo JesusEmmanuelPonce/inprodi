@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import {
     BrowserRouter as Router,
     Switch,
-    Route,
     Redirect
   } from "react-router-dom"
 import { startCheck } from '../actions/auth'

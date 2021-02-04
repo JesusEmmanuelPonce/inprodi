@@ -1,0 +1,22 @@
+.products__main{
+    background: $color-primary;
+    padding-bottom: 2rem;
+}
+
+.products__main-card{
+    color: $color-white;
+    margin: 2rem 0;
+}
+
+.products__card-content{
+    background: $color-secondary;
+    padding: 1rem;
+}
+
+.products__load{
+    color: $color-white;
+    font-weight: bold;
+    font-size: 2rem;
+    margin: 1.5rem;
+    text-align: center;
+}
